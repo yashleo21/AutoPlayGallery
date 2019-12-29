@@ -15,7 +15,7 @@ allprojects {
 ###  Add the dependency
   ```
   dependencies {
-	        implementation 'com.github.yashleo21:AutoPlayGallery:Tag'
+	        implementation 'com.github.yashleo21:AutoPlayGallery:0.1.1'
 	}
   ```
   
