@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(rv_gallery)
 
-        rv_gallery.addOnScrollListener(Util.GalleryScrollListener(this, exoPlayer!!, rv_gallery, GALLERY_ITEM_TYPE.TYPE_VIDEO.pos))
+        rv_gallery.addOnScrollListener(MediaPlaybackUtilility.GalleryScrollListener(this, exoPlayer!!, rv_gallery, GALLERY_ITEM_TYPE.TYPE_VIDEO.pos))
 
         val data = arrayListOf<GalleryDataModel>(GalleryDataModel(GALLERY_ITEM_TYPE.TYPE_VIDEO, GalleryDataObject("")),
             GalleryDataModel(GALLERY_ITEM_TYPE.TYPE_IMAGE, GalleryDataObject("")),

@@ -25,7 +25,6 @@ import kotlinx.android.synthetic.main.video_view.view.*
 class GalleryAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var data: ArrayList<GalleryDataModel>? = null
-    private var exoPlayer: ExoPlayer? = null
 
     override fun getItemViewType(position: Int): Int {
         return when (data?.get(position)?.type) {
@@ -82,7 +81,7 @@ class GalleryAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.Vi
         notifyDataSetChanged()
     }
 
-    inner class VideoHolder(val view: View): RecyclerView.ViewHolder(view), com.emre1s.autoplaygallery.util.Util.AutoPlayGalleryVideoHolder {
+    inner class VideoHolder(val view: View): RecyclerView.ViewHolder(view), MediaPlaybackUtilility.AutoPlayGalleryVideoHolder{
         private var mediaSource: MediaSource? = null
         private var exoPlayerView: PlayerView? = null
         private var pos: Int = -1
