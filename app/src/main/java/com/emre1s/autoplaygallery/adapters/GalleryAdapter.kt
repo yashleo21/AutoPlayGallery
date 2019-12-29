@@ -1,4 +1,4 @@
-package com.emre1s.autoplaygallery
+package com.emre1s.autoplaygallery.adapters
 
 import android.content.Context
 import android.net.Uri
@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.emre1s.autoplaygallery.R
 import com.emre1s.autoplaygallery.models.GALLERY_ITEM_TYPE
 import com.emre1s.autoplaygallery.models.GalleryDataModel
 import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.offline.DownloadHelper.createMediaSource
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.dash.DashMediaSource
 import com.google.android.exoplayer2.ui.PlayerView
@@ -39,13 +39,19 @@ class GalleryAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.Vi
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             GALLERY_ITEM_TYPE.TYPE_IMAGE.pos -> {
-                ImageHolder(getView(parent, R.layout.image_view))
+                ImageHolder(getView(parent,
+                    R.layout.image_view
+                ))
             }
             GALLERY_ITEM_TYPE.TYPE_VIDEO.pos -> {
-                VideoHolder(getView(parent, R.layout.video_view))
+                VideoHolder(getView(parent,
+                    R.layout.video_view
+                ))
             }
             else -> {
-                ImageHolder(getView(parent, R.layout.image_view))
+                ImageHolder(getView(parent,
+                    R.layout.image_view
+                ))
             }
         }
     }
@@ -58,6 +64,10 @@ class GalleryAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.Vi
         when (holder) {
             is VideoHolder -> {
                 holder.bindView()
+            }
+
+            is ImageHolder -> {
+              //  holder.bindView()
             }
         }
     }
@@ -72,7 +82,7 @@ class GalleryAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.Vi
         notifyDataSetChanged()
     }
 
-    inner class VideoHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class VideoHolder(view: View): RecyclerView.ViewHolder(view), com.emre1s.autoplaygallery.util.Util.AutoPlayGalleryVideoHolder {
         private var mediaSource: MediaSource? = null
         private var exoPlayerView: PlayerView? = null
         private var pos: Int = -1
@@ -94,7 +104,7 @@ class GalleryAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.Vi
 //            (exoPlayerView?.player as ExoPlayer).playWhenReady = true
         }
 
-        fun setAndPrepareExoPlayer(exoPlayer: ExoPlayer) {
+        override fun setAndPrepareExoPlayer(exoPlayer: ExoPlayer) {
             //Clear previous instance
             exoPlayerView?.player = null
             Log.d("GalleryAdapter", "CALLED setExoPlayer $pos")
