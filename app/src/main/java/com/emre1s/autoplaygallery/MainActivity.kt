@@ -3,13 +3,10 @@ package com.emre1s.autoplaygallery
 import android.content.Context
 import android.graphics.Point
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.emre1s.autoplaygallery.adapters.GalleryAdapter
 import com.emre1s.autoplaygallery.models.GALLERY_ITEM_TYPE
 import com.emre1s.autoplaygallery.models.GalleryDataModel
@@ -54,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(rv_gallery)
 
-        rv_gallery.addOnScrollListener(Util.GalleryScrollListener(this, exoPlayer!!, GALLERY_ITEM_TYPE.TYPE_VIDEO.pos))
+        rv_gallery.addOnScrollListener(Util.GalleryScrollListener(this, exoPlayer!!, rv_gallery, GALLERY_ITEM_TYPE.TYPE_VIDEO.pos))
 
         val data = arrayListOf<GalleryDataModel>(GalleryDataModel(GALLERY_ITEM_TYPE.TYPE_VIDEO, GalleryDataObject("")),
             GalleryDataModel(GALLERY_ITEM_TYPE.TYPE_IMAGE, GalleryDataObject("")),
@@ -65,6 +62,16 @@ class MainActivity : AppCompatActivity() {
 
         galleryAdapter?.refreshList(data)
         Util.addExoPlayerToFirstViewIfVideo(exoPlayer!!, rv_gallery)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        exoPlayer?.playWhenReady = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        exoPlayer?.playWhenReady = true
     }
 
     override fun onDestroy() {

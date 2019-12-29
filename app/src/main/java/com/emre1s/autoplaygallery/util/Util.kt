@@ -1,4 +1,5 @@
 package com.emre1s.autoplaygallery.util
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Point
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.Player
 
 
 object Util {
@@ -17,8 +19,7 @@ object Util {
     private var activeViewPosition: Int = -1
     private var recyclerOrientation = RecyclerView.HORIZONTAL
 
-
-    class GalleryScrollListener(context: Context, val exoPlayer: ExoPlayer,
+    class GalleryScrollListener(context: Context, val exoPlayer: ExoPlayer, recyclerView: RecyclerView,
                                 orientation: Int = RecyclerView.HORIZONTAL): RecyclerView.OnScrollListener() {
 
         init {
@@ -30,6 +31,38 @@ object Util {
             display.getSize(point)
             videoSurfaceDefaultWidth = point.x
             screenDefaultHeight = point.y
+
+            exoPlayer.addListener(object : Player.EventListener {
+                @SuppressLint("SwitchIntDef")
+                override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+                    super.onPlayerStateChanged(playWhenReady, playbackState)
+                    when (playbackState) {
+                        Player.STATE_READY -> {
+                            val currentViewholder = recyclerView.findViewHolderForAdapterPosition(
+                                activeViewPosition)
+                            if (currentViewholder != null && currentViewholder is AutoPlayGalleryVideoHolder) {
+                                currentViewholder.resumeState()
+                            }
+                        }
+
+                        Player.STATE_IDLE -> {
+
+                        }
+
+                        Player.STATE_BUFFERING -> {
+                            val currentViewholder = recyclerView.findViewHolderForAdapterPosition(
+                                activeViewPosition)
+                            if (currentViewholder != null && currentViewholder is AutoPlayGalleryVideoHolder) {
+                                currentViewholder.pauseState()
+                            }
+                        }
+
+                        Player.STATE_ENDED -> {
+
+                        }
+                    }
+                }
+            })
         }
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
@@ -130,5 +163,7 @@ object Util {
 
     interface AutoPlayGalleryVideoHolder {
         fun setAndPrepareExoPlayer(exoPlayer: ExoPlayer)
+        fun pauseState()
+        fun resumeState()
     }
 }

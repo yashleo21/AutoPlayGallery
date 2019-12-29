@@ -82,7 +82,7 @@ class GalleryAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.Vi
         notifyDataSetChanged()
     }
 
-    inner class VideoHolder(view: View): RecyclerView.ViewHolder(view), com.emre1s.autoplaygallery.util.Util.AutoPlayGalleryVideoHolder {
+    inner class VideoHolder(val view: View): RecyclerView.ViewHolder(view), com.emre1s.autoplaygallery.util.Util.AutoPlayGalleryVideoHolder {
         private var mediaSource: MediaSource? = null
         private var exoPlayerView: PlayerView? = null
         private var pos: Int = -1
@@ -111,6 +111,18 @@ class GalleryAdapter(val context: Context): RecyclerView.Adapter<RecyclerView.Vi
             exoPlayerView?.player = exoPlayer
             exoPlayer.prepare(mediaSource!!)
             exoPlayer.playWhenReady = true
+        }
+
+        override fun pauseState() {
+            view.play_pause.visibility = View.VISIBLE
+            view.thumbnail.visibility = View.VISIBLE
+            exoPlayerView?.visibility = View.INVISIBLE
+        }
+
+        override fun resumeState() {
+            view.play_pause.visibility = View.INVISIBLE
+            view.thumbnail.visibility = View.INVISIBLE
+            exoPlayerView?.visibility = View.VISIBLE
         }
     }
 

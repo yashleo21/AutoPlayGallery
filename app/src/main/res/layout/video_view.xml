@@ -5,10 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.exoplayer2.ui.PlayerView
-        android:id="@+id/pv"
+    <FrameLayout
         android:layout_width="match_parent"
-        app:use_controller="false"
-        app:resize_mode="fill"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/pv"
+            android:layout_width="match_parent"
+            app:use_controller="false"
+            app:resize_mode="fill"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="#000"
+            android:src="#000" />
+
+        <ImageView
+            android:id="@+id/play_pause"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:src="@drawable/ic_play_circle_filled_white_24dp" />
+    </FrameLayout>
+
 </LinearLayout>

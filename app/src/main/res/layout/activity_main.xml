@@ -12,22 +12,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:src="#456123" />
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:src="#456123" />-->
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:src="#678342" />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:src="#084123" />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:src="#867832" />
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:src="#678342" />-->
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:src="#084123" />-->
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:src="#867832" />-->
 
 </LinearLayout>
