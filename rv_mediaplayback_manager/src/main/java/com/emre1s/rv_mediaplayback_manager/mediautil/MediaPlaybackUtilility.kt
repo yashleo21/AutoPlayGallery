@@ -207,8 +207,8 @@ limitations under the License.
  */
 
 
-object Util {
-    private val TAG = Util::class.java.simpleName
+object MediaPlaybackUtilility {
+    private val TAG = MediaPlaybackUtilility::class.java.simpleName
     private var videoSurfaceDefaultWidth: Int = 0
     private var screenDefaultHeight: Int = 1
     private var activeViewPosition: Int = -1
